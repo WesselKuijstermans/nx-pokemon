@@ -1,0 +1,7 @@
+ul.right {
+    float: right;
+}
+
+ul{
+    display:inline-flex;
+}

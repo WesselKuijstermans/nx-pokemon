@@ -1,0 +1,135 @@
+<div class="container mt-4">
+  <h2>Entiteiten</h2>
+  <p>
+    De onderstreepte attributen geven een primary/composite Key aan. Namen van
+    Moves, Items, Types en Abilities zijn namelijk uniek.
+  </p>
+  <p>
+    Sterke Entiteiten zijn: Item, User, Ability en Type.
+    <br />
+    Zwakke Entiteiten zijn: Owned Pokémon, Pokémon en Move.
+  </p>
+  <div class="row mt-3">
+    <div class="col-sm">
+      <p>User</p>
+      <ul>
+        <li>Name</li>
+        <li>Email</li>
+        <li class="underlined">TrainerId</li>
+        <li>Password</li>
+        <li>Pokémon Team</li>
+      </ul>
+    </div>
+    <div class="col-sm">
+      <p>Owned Pokémon</p>
+      <ul>
+        <li>Name</li>
+        <li class="underlined">Pokédex Number</li>
+        <li class="underlined">TrainerId</li>
+        <li>Types</li>
+        <li>Abilities</li>
+        <li>Learned Moves</li>
+        <li>HP</li>
+        <li>Defense</li>
+        <li>Special Defense</li>
+        <li>Attack</li>
+        <li>Special Attack</li>
+        <li>Speed</li>
+        <li>Held Item</li>
+      </ul>
+    </div>
+    <div class="col-sm">
+      <p>Item</p>
+      <ul>
+        <li class="underlined">Name</li>
+        <li>effect</li>
+      </ul>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm">
+      <p>Pokémon</p>
+      <ul>
+        <li>Name</li>
+        <li class="underlined">Pokédex Number</li>
+        <li>Pokédex Entry</li>
+        <li>Types</li>
+        <li>Abilities</li>
+        <li>Possible Moves</li>
+        <li>HP</li>
+        <li>Defense</li>
+        <li>Special Defense</li>
+        <li>Attack</li>
+        <li>Special Attack</li>
+        <li>Speed</li>
+        <li>Evolves From</li>
+        <li>Evolves Into</li>
+        <li>Evolution Requirement</li>
+        <li>Created By</li>
+      </ul>
+    </div>
+    <div class="col-sm">
+      <p>Move</p>
+      <ul>
+        <li class="underlined">Name</li>
+        <li>Description</li>
+        <li>Type</li>
+        <li>Move Category (Physical, Special or Status)</li>
+        <li>Makes Contact</li>
+        <li>PP</li>
+        <li>Power</li>
+        <li>Accuracy</li>
+        <li>Created By</li>
+      </ul>
+    </div>
+    <div class="col-sm">
+      <p>Type</p>
+      <ul>
+        <li class="underlined">Name</li>
+        <li>Strong against</li>
+        <li>Weak against</li>
+        <li>useless against</li>
+        <li>Immune to</li>
+        <li>Resistant to</li>
+        <li>Vulnerable To</li>
+        <li>Created By</li>
+      </ul>
+    </div>
+    <div class="col-sm">
+      <p>Ability</p>
+      <ul>
+        <li class="underlined">Name</li>
+        <li>Effect</li>
+        <li>Created By</li>
+      </ul>
+    </div>
+  </div>
+  <div>
+    <h2>ERD</h2>
+    <img width="95%" height="auto" src="../../assets/Img/PokemonERD.png" />
+  </div>
+  <div>
+    <h2>Use Cases</h2>
+    <p>
+      Deze website dient als een pokémon wiki met de toegevoegde functionaliteit
+      om je eigen team te creëren.
+    </p>
+    <p>
+      Users kunnen wiki pagina's aanmaken voor pokémon, moves, types en
+      abilities. Vervolgens kunnen users een team van 6 pokémon samenstellen,
+      waarbij per pokémon 4 moves, een Item en een ability kunnen worden
+      geselecteerd. (in het geval van meerdere mogelijke abilities wordt er één
+      gekozen)
+    </p>
+    <p>
+      Voor Users is er de mogelijkheid om anderen te volgen. Je kan dan het team
+      van die User zien.
+      <br />
+      Sterke Pokémon van een User die je volgt kunnen aangeraden worden om aan
+      je team toe te voegen.
+      <br />
+      Ook kan van jou pokémon gekeken worden wat andere Users qua Moves,
+      Abilities of Items het meest gebruiken.
+    </p>
+  </div>
+</div>
