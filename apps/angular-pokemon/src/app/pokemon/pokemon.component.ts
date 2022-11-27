@@ -1,13 +1,13 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'nx-pokemon-app-pokemon',
   templateUrl: './pokemon.component.html',
   styleUrls: ['./pokemon.component.css'],
 })
-export class PokemonComponent implements OnInit {
+export class PokemonComponent {
   constructor() {}
 
-  ngOnInit(): void {}
+
 }

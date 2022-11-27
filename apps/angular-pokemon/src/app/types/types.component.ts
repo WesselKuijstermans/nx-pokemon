@@ -3,8 +3,6 @@ import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Type } from '@nx-pokemon/test';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
-import * as _ from 'lodash';
 
 @Component({
   selector: 'nx-pokemon-app-types',
