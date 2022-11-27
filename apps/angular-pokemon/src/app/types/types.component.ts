@@ -1,5 +1,10 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
+import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { Type } from '@nx-pokemon/test';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+import * as _ from 'lodash';
 
 @Component({
   selector: 'nx-pokemon-app-types',
@@ -7,7 +12,17 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./types.component.css'],
 })
 export class TypesComponent implements OnInit {
-  constructor() {}
+  types!: Type[];
+  constructor(private http: HttpClient) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.getAllTypes().subscribe(resp => {
+      console.log(resp);
+      this.types =  resp;
+    })
+  }
+
+  getAllTypes(): Observable<Type[]> {
+    return this.http.get<Type[]>('http://localhost:3000/types');
+  }
 }

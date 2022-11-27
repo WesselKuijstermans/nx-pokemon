@@ -1,1 +1,19 @@
-<p>types works!</p>
+<div class="container">
+  <div
+    *ngFor="let type of types"
+    [ngStyle]="{ 'margin': '30px','padding': '10px 0 10px 0', 'background-color': '#e9e9e9', 'border-radius': '10px', 'box-shadow': '0 3px 10px 0' }"
+  >
+    <div class="container">
+      Name: {{ type.name }}
+      <br />
+      <br />
+      Strengths: {{ type.strengths }}
+      <br />
+      <br />
+      Weaknesses: {{ type.weaknesses }}
+      <br />
+      <br />
+      Immunes: {{ type.immunes }}
+    </div>
+  </div>
+</div>

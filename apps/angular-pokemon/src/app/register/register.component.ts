@@ -1,18 +1,19 @@
+/* eslint-disable @typescript-eslint/no-empty-function */
+/* eslint-disable @angular-eslint/no-empty-lifecycle-method */
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
-import { Component } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { HttpClient } from '@angular/common/http';
-import { UserRegistration} from '@nx-pokemon/test'
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 @Component({
   selector: 'nx-pokemon-register',
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.css'],
 })
-export class RegisterComponent {
-  user!: UserRegistration;
-  constructor(private http: HttpClient) {
-  }
+export class RegisterComponent implements OnInit, OnDestroy {
+  constructor(private http: HttpClient) {}
+
+  _id!: string;
 
   registerForm = new FormGroup({
     username: new FormControl('', [
@@ -28,12 +29,19 @@ export class RegisterComponent {
     ]),
   });
 
-  register(): void {
-    this.user.emailAddress = this.registerForm.value.emailAddress!;
-    this.user.password = this.registerForm.value.password!;
-    this.user.username = this.registerForm.value.username!;
-    const req = this.http.post('http://localhost:3000/register', this.user);
-     req.subscribe();
+  ngOnInit(): void {
   }
 
+  ngOnDestroy(): void {}
+
+  register(): void {
+    console.log(this.registerForm.value);
+    this.http.post<any>('http://localhost:3000/register', {
+      emailAddress: this.registerForm.value.emailAddress,
+      username: this.registerForm.value.username,
+      password: this.registerForm.value.password,
+    }).subscribe(data => {
+      this._id = data.id;
+    }); 
+  }
 }
