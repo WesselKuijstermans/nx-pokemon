@@ -15,7 +15,7 @@
         "index": "apps/angular-pokemon/src/index.html",
         "main": "apps/angular-pokemon/src/main.ts",
         "polyfills": [
-          "zone.js"
+          "polyfills.ts"
         ],
         "tsConfig": "apps/angular-pokemon/tsconfig.app.json",
         "assets": [
