@@ -3,7 +3,8 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
+import { UserRegistration } from '@nx-pokemon/test';
 
 @Component({
   selector: 'nx-pokemon-register',
@@ -36,12 +37,10 @@ export class RegisterComponent implements OnInit, OnDestroy {
 
   register(): void {
     console.log(this.registerForm.value);
-    this.http.post<any>('http://localhost:3000/register', {
+    this.http.post<UserRegistration>('http://localhost:3000/register', {
       emailAddress: this.registerForm.value.emailAddress,
       username: this.registerForm.value.username,
       password: this.registerForm.value.password,
-    }).subscribe(data => {
-      this._id = data.id;
-    }); 
+    }).subscribe(); 
   }
 }
