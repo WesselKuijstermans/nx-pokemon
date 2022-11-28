@@ -14,9 +14,7 @@
         "outputPath": "dist/apps/angular-pokemon",
         "index": "apps/angular-pokemon/src/index.html",
         "main": "apps/angular-pokemon/src/main.ts",
-        "polyfills": [
-          "apps/angular-pokemon/src/polyfills.ts"
-        ],
+        "polyfills": "apps/angular-pokemon/src/polyfills.ts",
         "tsConfig": "apps/angular-pokemon/tsconfig.app.json",
         "assets": [
           "apps/angular-pokemon/src/favicon.ico",
