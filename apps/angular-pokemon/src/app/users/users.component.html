@@ -6,7 +6,7 @@
       <th>TrainerId</th>
     </thead>
     <tbody>
-      <tr *ngFor="let user of users">
+      <tr *ngFor="let user of users" routerLink="/users/{{user.id}}">
         <td>{{ user.name }}</td>
         <td>{{ user.emailAddress }}</td>
         <td>{{ user.id }}</td>

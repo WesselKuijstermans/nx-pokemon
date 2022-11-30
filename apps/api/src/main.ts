@@ -1,10 +1,13 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app/app.module';
-require('dotenv').config()
+require('dotenv').config();
+const cors = require('cors');
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
+
+  app.use(cors());
 
   app.use(function (req, res, next) {
 

@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { BrowserModule } from '@angular/platform-browser';
 
 
 import { AppRoutingModule } from './app-routing.module';
@@ -30,7 +31,7 @@ import { UsersComponent } from './users/users.component';
     LoginComponent,
     UsersComponent,
   ],
-  imports: [NgbModule, AppRoutingModule, HttpClientModule, FormsModule, ReactiveFormsModule, CommonModule],
+  imports: [NgbModule, AppRoutingModule, HttpClientModule, FormsModule, ReactiveFormsModule, CommonModule, BrowserModule],
   providers: [],
   bootstrap: [AppComponent],
 })
