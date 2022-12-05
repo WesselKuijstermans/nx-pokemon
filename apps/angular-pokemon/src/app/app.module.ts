@@ -14,8 +14,8 @@ import { MovesComponent } from './moves/moves.component';
 import { TypesComponent } from './types/types.component';
 import { CasusComponent } from './casus/casus.component';
 import { HttpClientModule } from '@angular/common/http';
-import { RegisterComponent } from './register/register.component';
-import { LoginComponent } from './login/login.component';
+import { RegisterComponent } from './users/register/register.component';
+import { LoginComponent } from './users/login/login.component';
 import { UsersComponent } from './users/users.component';
 
 @NgModule({

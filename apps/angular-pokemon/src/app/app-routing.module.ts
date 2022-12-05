@@ -6,13 +6,13 @@ import { MovesComponent } from './moves/moves.component';
 import { TypesComponent } from './types/types.component';
 import { CasusComponent } from './casus/casus.component';
 import { UsersComponent } from './users/users.component';
-import { RegisterComponent } from './register/register.component';
-import { LoginComponent } from './login/login.component';
+import { RegisterComponent } from './users/register/register.component';
+import { LoginComponent } from './users/login/login.component';
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent },
   { path: 'users', component: UsersComponent, children: [
-    { path: '/:id', component: UsersComponent }
+    { path: ':id', component: UsersComponent }
   ]},
   { path: 'pokemon', component: PokemonComponent },
   { path: 'moves', component: MovesComponent },
