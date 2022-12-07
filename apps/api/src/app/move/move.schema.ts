@@ -1,7 +1,7 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import mongoose, { HydratedDocument } from 'mongoose';
 import { Type } from '../type/types.schema';
-import { User } from '../user/user.schema';
 
 export type MoveDocument = HydratedDocument<Move>;
 
@@ -13,9 +13,6 @@ export class Move {
     index: true,
   })
   name: string;
-
-  @Prop({ required: true })
-  description: string;
 
   @Prop({ required: true })
   type: Type;
@@ -39,8 +36,14 @@ export class Move {
   @Prop({ required: true })
   accuracy: number;
 
-  @Prop({ required: true })
-  createdBy: { type: mongoose.Schema.Types.ObjectId; ref: User };
+  @Prop({
+    required: true,
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User',
+    autopopulate: true,
+  })
+  createdBy: { type: mongoose.Schema.Types.ObjectId; ref: 'User' };
 }
 
 export const MoveSchema = SchemaFactory.createForClass(Move);
+MoveSchema.plugin(require('mongoose-autopopulate'));

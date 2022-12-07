@@ -16,7 +16,7 @@ export class AbilityController {
 
   @Post()
   async create(@Body() ability: Ability): Promise<string> {
-    return this.abilityService.createAbility(ability.name, ability.effect, ability.createdBy);
+    return this.abilityService.create(ability.name, ability.effect, ability.createdBy);
   }
 
   @Get()

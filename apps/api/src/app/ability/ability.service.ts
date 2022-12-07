@@ -1,7 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import mongoose, { Model } from 'mongoose';
-import { User } from '../user/user.schema';
 import { Ability, AbilityDocument } from './ability.schema';
 
 @Injectable()
@@ -10,14 +9,14 @@ export class AbilityService {
     @InjectModel(Ability.name) private abilityModel: Model<AbilityDocument>
   ) {}
 
-  async createAbility(name: string, effect: string, createdBy: {type: mongoose.Schema.Types.ObjectId, ref: 'User'}) {
+  async create(name: string, effect: string, createdBy: {type: mongoose.Schema.Types.ObjectId, ref: 'User'}) {
     const ability = new this.abilityModel({ name, effect, createdBy });
     await ability.save();
     return ability.name;
   }
 
   async getAll() {
-    const abilities = await this.abilityModel.find().populate('createdBy');
+    const abilities = await this.abilityModel.find();
     console.log(abilities);
     return abilities;
   }

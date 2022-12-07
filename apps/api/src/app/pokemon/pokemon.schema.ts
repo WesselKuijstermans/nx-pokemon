@@ -3,7 +3,6 @@ import mongoose, { HydratedDocument } from "mongoose";
 import { Ability } from "../ability/ability.schema";
 import { Move } from "../move/move.schema";
 import { Type } from "../type/types.schema";
-import { User } from "../user/user.schema";
 
 export type PokedexDocument = HydratedDocument<PokedexEntry>
 export type OwnedPokemonDocument = HydratedDocument<OwnedPokemon>
@@ -60,8 +59,11 @@ export class PokedexEntry {
     @Prop()
     evolutionRequirement: string
     
-    @Prop({required: true})
-    createdBy: {type: mongoose.Schema.Types.ObjectId, ref: User}
+    @Prop({ 
+        required: true, 
+        type: mongoose.Schema.Types.ObjectId, 
+        ref: 'User' })
+      createdBy: { type: mongoose.Schema.Types.ObjectId; ref: 'User' };
 }
 
 @Schema()

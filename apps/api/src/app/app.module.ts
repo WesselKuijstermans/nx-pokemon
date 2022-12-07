@@ -9,6 +9,8 @@ import { UserModule } from './user/user.module';
 import { AbilityModule } from './ability/ability.module';
 import { MoveModule } from './move/move.module';
 import { PassportModule } from '@nestjs/passport';
+import { ItemModule } from './item/item.module';
+import { PokemonModule } from './pokemon/pokemon.module';
 require('dotenv').config();
 
 @Module({
@@ -16,11 +18,13 @@ require('dotenv').config();
     TypeModule,
     AuthModule,
     UserModule,
+    AbilityModule,
+    ItemModule,
+    PokemonModule,
+    MoveModule,
     MongooseModule.forRoot(
       `mongodb+srv://${process.env.MONGO_USR}@${process.env.MONGO_CLUSTER}/${process.env.MONGO_DB}`
     ),
-    AbilityModule,
-    MoveModule,
     PassportModule.register({ defaultStrategy: 'jwt' }),
   ],
   controllers: [AppController],

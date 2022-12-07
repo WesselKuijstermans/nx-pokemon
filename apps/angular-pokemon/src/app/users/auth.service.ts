@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, of } from 'rxjs';
 import {
   UserCredentials,
-  UserIdentity,
   UserLogin,
   UserRegistration,
 } from '@nx-pokemon/test';
