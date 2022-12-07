@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <style>
-    header {
-        background-color: #3264B0;
-    }
-    a {
-        color: white;
-    }
-    a:hover {
-        color: lightgray;
-    }
+  header {
+    background-color: #3264b0;
+  }
+  a {
+    color: white;
+  }
+  a:hover {
+    color: lightgray;
+  }
 </style>
 <header>
   <nav class="navbar navbar-expand-lg customnavbg">
@@ -34,13 +34,32 @@
             <a class="nav-link" routerLink="/casus">Casus</a>
           </li>
         </ul>
-        <ul class="nav navbar-nav navbar-right right">
-          <li class="nav-item">
-            <a class="nav-link" routerLink="/register">Register</a>
+        <ul class="navbar-nav right">
+          <li *ngIf="(loggedInUser$ | async) === undefined" class="nav-item">
+            <a
+              class="nav-link"
+              routerLink="/register"
+              [routerLinkActive]="['active']"
+              >Register</a
+            >
           </li>
-          <li class="nav-item">
-            <a class="nav-link" routerLink="/login">Login</a>
+          <li *ngIf="(loggedInUser$ | async) === undefined" class="nav-item">
+            <a
+              class="nav-link"
+              routerLink="/login"
+              [routerLinkActive]="['active']"
+              >Login</a
+            >
           </li>
+          <div *ngIf="loggedInUser$ | async as user" ngbDropdown class="d-inline-block">
+            <a class="nav-link" id="profile" ngbDropdownToggle>
+              {{ user.name }}
+            </a>
+            <div ngbDropdownMenu aria-labelledby="profie">
+              <button ngbDropdownItem>Profile</button>
+              <button ngbDropdownItem (click)="logout()">Log Out</button>
+            </div>
+          </div>
         </ul>
       </div>
     </div>

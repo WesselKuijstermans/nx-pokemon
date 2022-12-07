@@ -8,6 +8,7 @@ import { AuthModule } from './auth/auth.module';
 import { UserModule } from './user/user.module';
 import { AbilityModule } from './ability/ability.module';
 import { MoveModule } from './move/move.module';
+import { PassportModule } from '@nestjs/passport';
 require('dotenv').config();
 
 @Module({
@@ -20,6 +21,7 @@ require('dotenv').config();
     ),
     AbilityModule,
     MoveModule,
+    PassportModule.register({ defaultStrategy: 'jwt' }),
   ],
   controllers: [AppController],
   providers: [AppService],

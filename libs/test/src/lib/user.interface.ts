@@ -15,4 +15,9 @@ export interface Trainer extends UserIdentity {
     team: OwnedPokemon[];
 }
 
+export interface UserLogin extends UserInfo {
+    _id: any
+    token: string
+}
+
 export type User = UserInfo

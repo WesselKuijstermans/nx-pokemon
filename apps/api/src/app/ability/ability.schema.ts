@@ -16,8 +16,13 @@ export class Ability {
     @Prop({required: true})
     effect: string
 
-    @Prop({required: true})
-    createdBy: {type: mongoose.Schema.Types.ObjectId, ref: User}
+    @Prop({
+        required: true,
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User'
+    }     
+    )
+    createdBy: {type: mongoose.Schema.Types.ObjectId, ref: 'User'}
 }
 
 export const AbilitySchema = SchemaFactory.createForClass(Ability);

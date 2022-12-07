@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { UserService } from '../user.service';
+import { FormValues, UserRegistration } from '@nx-pokemon/test';
+import { AuthService } from '../auth.service';
 
 @Component({
   selector: 'nx-pokemon-register',
@@ -9,9 +10,8 @@ import { UserService } from '../user.service';
   styleUrls: ['./register.component.css'],
 })
 export class RegisterComponent {
-  constructor(private userService: UserService, private router: Router) {}
+  constructor(private userService: AuthService, private router: Router) {}
 
-  _id!: string;
 
   registerForm = new FormGroup({
     username: new FormControl('', [
@@ -23,9 +23,18 @@ export class RegisterComponent {
   });
 
   submit(): void {
-    this.userService.register(this.registerForm).subscribe((data) => {
-      this._id = data;
-      this.router.navigate(['/home']);
+    const formValues: FormValues = new FormValues(this.registerForm.value);
+    const username = formValues.username;
+    const emailAddress = formValues.emailAddress;
+    const password = formValues.password;
+    const userRegistration: UserRegistration = {
+      username,
+      emailAddress,
+      password
+    }
+    this.userService.register(userRegistration).subscribe((data) => {
+      console.log(data);
+      this.router.navigate(['/users']);
     });
   }
 }

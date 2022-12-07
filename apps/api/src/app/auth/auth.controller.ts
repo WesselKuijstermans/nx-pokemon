@@ -6,11 +6,12 @@ import {
   Post,
 } from '@nestjs/common';
 
+
 import {
   TrainerId,
-  Token,
   UserCredentials,
   UserRegistration,
+  UserLogin,
 } from '@nx-pokemon/test';
 
 import { AuthService } from './auth.service';
@@ -33,7 +34,7 @@ export class AuthController {
         id: await this.authService.createUser(
           credentials.username,
           credentials.emailAddress
-        )
+        ),
       };
     } catch (e) {
       console.log('failed!');
@@ -42,14 +43,12 @@ export class AuthController {
   }
 
   @Post('login')
-  async login(@Body() credentials: UserCredentials): Promise<Token> {
+  async login(@Body() credentials: UserCredentials): Promise<UserLogin> {
     try {
-      return {
-        token: await this.authService.generateToken(
-          credentials.username,
-          credentials.password
-        ),
-      };
+      return await this.authService.generateToken(
+        credentials.username,
+        credentials.password
+      );
     } catch (e) {
       throw new HttpException(`Invalid credentials`, HttpStatus.UNAUTHORIZED);
     }

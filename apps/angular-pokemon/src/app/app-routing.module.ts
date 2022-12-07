@@ -11,9 +11,9 @@ import { LoginComponent } from './users/login/login.component';
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent },
-  { path: 'users', component: UsersComponent, children: [
-    { path: ':id', component: UsersComponent }
-  ]},
+  { path: 'users', component: UsersComponent,
+    children: [{ path: ':id', component: UsersComponent }],
+  },
   { path: 'pokemon', component: PokemonComponent },
   { path: 'moves', component: MovesComponent },
   { path: 'types', component: TypesComponent },

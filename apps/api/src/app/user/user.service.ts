@@ -18,7 +18,7 @@ export class UserService {
   }
 
   async getOne(inputId: string): Promise<User | null> {
-    const users = this.userModel.find({ trainerId: inputId });
-    return users[0];
+    const user = this.userModel.findOne({ trainerId: inputId });
+    return user;
   }
 }
