@@ -14,8 +14,8 @@ export interface Pokemon {
     attack: number;
     specialAttack: number;
     Speed: number;
-    evolvesFrom: Pokemon;
-    evolvesInto: Pokemon;
+    evolvesFrom: Pokemon | number;
+    evolvesInto: Pokemon | number;
     evolutionRequirement: string;
 }
 

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
 import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
 import mongoose, { HydratedDocument } from "mongoose";
 import { Ability } from "../ability/ability.schema";
@@ -17,7 +18,8 @@ export class PokedexEntry {
     pokedexNumber: number
 
     @Prop({
-        required: true
+        required: true,
+        unique: true
     })
     name: string
 
@@ -51,10 +53,10 @@ export class PokedexEntry {
     speed: number
 
     @Prop()
-    evolvesFrom: {type: number, ref: PokedexEntry}
+    evolvesFrom: number
 
     @Prop()
-    evolvesInto: {type: number, ref: PokedexEntry}
+    evolvesInto: number
 
     @Prop()
     evolutionRequirement: string
@@ -62,7 +64,8 @@ export class PokedexEntry {
     @Prop({ 
         required: true, 
         type: mongoose.Schema.Types.ObjectId, 
-        ref: 'User' })
+        ref: 'User',
+        autopopulate: true })
       createdBy: { type: mongoose.Schema.Types.ObjectId; ref: 'User' };
 }
 
@@ -105,3 +108,4 @@ export class OwnedPokemon {
 
 export const PokedexSchema = SchemaFactory.createForClass(PokedexEntry);
 export const OwnedPokemonSchema = SchemaFactory.createForClass(OwnedPokemon);
+PokedexSchema.plugin(require('mongoose-autopopulate'));
