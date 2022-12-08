@@ -8,9 +8,9 @@ import { AuthModule } from './auth/auth.module';
 import { UserModule } from './user/user.module';
 import { AbilityModule } from './ability/ability.module';
 import { MoveModule } from './move/move.module';
-import { PassportModule } from '@nestjs/passport';
 import { ItemModule } from './item/item.module';
 import { PokemonModule } from './pokemon/pokemon.module';
+import { Neo4jModule } from '../neo4j/neo4j.module';
 require('dotenv').config();
 
 @Module({
@@ -22,10 +22,10 @@ require('dotenv').config();
     ItemModule,
     PokemonModule,
     MoveModule,
+    Neo4jModule,
     MongooseModule.forRoot(
       `mongodb+srv://${process.env.MONGO_USR}@${process.env.MONGO_CLUSTER}/${process.env.MONGO_DB}`
     ),
-    PassportModule.register({ defaultStrategy: 'jwt' }),
   ],
   controllers: [AppController],
   providers: [AppService],
