@@ -27,7 +27,7 @@ async function bootstrap() {
     // Pass to next layer of middleware
     next();
 });
-  await app.listen(process.env.PORT || 3000);
+  await app.listen(process.env.$PORT || 3000);
   
 }
 bootstrap();
