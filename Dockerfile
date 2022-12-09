@@ -1,7 +1,7 @@
 # Define image.
 FROM docker.io/node:lts-alpine as deps
 # Define app directory.
-WORKDIR /app
+WORKDIR /apps/api
 # Copy dist.
 COPY package.json .
 # Install dependencies
