@@ -14,8 +14,11 @@ export class Neo4jService {
     const session = this.driver.session();
 
     try {
-        const res = await session.executeWrite(req => req.run(`MERGE (p:Person {name: $person})-[r:OWNS]->(mon:Pokemon{name: $pokemon}) RETURN p, r, mon`, {person: 'Wessel', pokemon: 'bulbasaur'}));
-        return res.records.map(row => row.get('p'));
+        const res = await session.executeWrite(req => req.run(`MERGE (p:Person {name: $person})-[:OWNS]->(mon:Pokemon{name: $pokemon}) RETURN p.name as p, mon.name as mon`, {person: 'Wessel', pokemon: 'bulbasaur'}));
+        const person = res.records.map(row => row.get('p'));
+        const pokemon = res.records.map(row => row.get('mon'));
+        const results = {person, pokemon}
+        return results;
     } finally {
         session.close();
     }
@@ -25,10 +28,21 @@ export class Neo4jService {
     const session = this.driver.session();
 
     try {
-      const res = await session.executeWrite(req => req.run(`MERGE (p:Person {name: $person})`, {person: username}));
+      const res = await session.executeWrite(req => req.run(`MERGE (Person {name: $person})`, {person: username}));
       return res.records.map(row => row.get('p'))
     } finally {
       session.close();
+    }
+  }
+
+  async addToTeam(person: string, pokemon: string) {
+    const session = this.driver.session();
+
+    try {
+      const res = await session.executeWrite(req => req.run(`MERGE (p:Person {name: $person})-[r:OWNS]->(mon:Pokemon {name: $pokemon})`, {person, pokemon}));
+      return res.records.map(row => row.get('p'))
+    } finally {
+      session.close()
     }
   }
 }
