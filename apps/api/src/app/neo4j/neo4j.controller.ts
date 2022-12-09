@@ -8,6 +8,6 @@ export class Neo4jController {
     
     @Post()
     async test() {
-        this.neoService.test();
+        return this.neoService.test();
     }
 }

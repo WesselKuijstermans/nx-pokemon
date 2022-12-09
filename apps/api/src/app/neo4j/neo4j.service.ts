@@ -15,9 +15,20 @@ export class Neo4jService {
 
     try {
         const res = await session.executeWrite(req => req.run(`MERGE (p:Person {name: $person})-[r:OWNS]->(mon:Pokemon{name: $pokemon}) RETURN p, r, mon`, {person: 'Wessel', pokemon: 'bulbasaur'}));
-        console.log(res.records.map(row => row.get('p')));
+        return res.records.map(row => row.get('p'));
     } finally {
         session.close();
+    }
+  }
+
+  async addUser(username: string) {
+    const session = this.driver.session();
+
+    try {
+      const res = await session.executeWrite(req => req.run(`MERGE (p:Person {name: $person})`, {person: username}));
+      return res.records.map(row => row.get('p'))
+    } finally {
+      session.close();
     }
   }
 }

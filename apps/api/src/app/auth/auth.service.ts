@@ -9,16 +9,19 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Identity, IdentityDocument } from './identity.schema';
 import { User, UserDocument } from '../user/user.schema';
 import { UserLogin } from '@nx-pokemon/test';
+import { Neo4jService } from '../neo4j/neo4j.service';
 
 @Injectable()
 export class AuthService {
   constructor(
     @InjectModel(Identity.name) private identityModel: Model<IdentityDocument>,
-    @InjectModel(User.name) private userModel: Model<UserDocument>
+    @InjectModel(User.name) private userModel: Model<UserDocument>,
+    private neoService: Neo4jService
   ) {}
 
   async createUser(name: string, emailAddress: string): Promise<string> {
     const user = new this.userModel({ name, emailAddress });
+    this.neoService.addUser(name);
     await user.save();
     return user.id;
   }

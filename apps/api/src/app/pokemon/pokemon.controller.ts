@@ -8,23 +8,7 @@ export class PokemonController {
 
     @Post()
     async create(@Body() pokemon: PokedexEntry): Promise<string> {
-        return this.pokemonService.create(
-            pokemon.pokedexNumber,
-            pokemon.name,
-            pokemon.types,
-            pokemon.abilities,
-            pokemon.moves,
-            pokemon.hp,
-            pokemon.attack,
-            pokemon.specialAttack,
-            pokemon.defense,
-            pokemon.specialDefense,
-            pokemon.speed,
-            pokemon.evolvesFrom,
-            pokemon.evolvesInto,
-            pokemon.evolutionRequirement,
-            pokemon.createdBy
-        )
+        return this.pokemonService.create(pokemon)
     }
 
     @Get()
@@ -38,24 +22,8 @@ export class PokemonController {
     }
 
     @Put(':value')
-    async updateOne(@Param('value') value: number, @Body() pokemon: PokedexEntry): Promise<string> {
-        return this.pokemonService.update(
-            value,
-            pokemon.name,
-            pokemon.types,
-            pokemon.abilities,
-            pokemon.moves,
-            pokemon.hp,
-            pokemon.attack,
-            pokemon.specialAttack,
-            pokemon.defense,
-            pokemon.specialDefense,
-            pokemon.speed,
-            pokemon.evolvesFrom,
-            pokemon.evolvesInto,
-            pokemon.evolutionRequirement,
-            pokemon.createdBy,
-        )
+    async updateOne(@Param('value') value: string | number, @Body() pokemon: PokedexEntry): Promise<string> {
+        return await this.pokemonService.update( value, pokemon)
     }
 
     @Delete(':value')

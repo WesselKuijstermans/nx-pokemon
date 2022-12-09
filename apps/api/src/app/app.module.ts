@@ -10,7 +10,7 @@ import { AbilityModule } from './ability/ability.module';
 import { MoveModule } from './move/move.module';
 import { ItemModule } from './item/item.module';
 import { PokemonModule } from './pokemon/pokemon.module';
-import { Neo4jModule } from '../neo4j/neo4j.module';
+import { Neo4jModule } from './neo4j/neo4j.module';
 require('dotenv').config();
 
 @Module({

@@ -1,51 +1,31 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import mongoose, { Model } from 'mongoose';
-import { Ability } from '../ability/ability.schema';
-import { Move } from '../move/move.schema';
-import { Type } from '../type/types.schema';
-import { OwnedPokemon, PokedexEntry } from './pokemon.schema';
+import { Model } from 'mongoose';
+import { PokedexEntry } from './pokemon.schema';
 
 @Injectable()
 export class PokemonService {
   constructor(
-    @InjectModel(PokedexEntry.name) private dexModel: Model<PokedexEntry>,
-    @InjectModel(OwnedPokemon.name) private ownedModel: Model<OwnedPokemon>
+    @InjectModel(PokedexEntry.name) private dexModel: Model<PokedexEntry>
   ) {}
 
-  async create(
-    pokedexNumber: number,
-    name: string,
-    types: Type[],
-    abilities: Ability[],
-    moves: Move[],
-    hp: number,
-    attack: number,
-    specialAttack: number,
-    defense: number,
-    specialDefense: number,
-    speed: number,
-    evolvesFrom: number,
-    evolvesInto: number,
-    evolutionRequirement: string,
-    createdBy: { type: mongoose.Schema.Types.ObjectId; ref: 'User' }
-  ) {
+  async create(pokemon: PokedexEntry) {
     const dex = new this.dexModel({
-      pokedexNumber,
-      name,
-      types,
-      abilities,
-      moves,
-      hp,
-      attack,
-      specialAttack,
-      defense,
-      specialDefense,
-      speed,
-      evolvesFrom,
-      evolvesInto,
-      evolutionRequirement,
-      createdBy,
+      pokedexNumber: pokemon.pokedexNumber,
+      name: pokemon.name,
+      types: pokemon.types,
+      abilities: pokemon.abilities,
+      moves: pokemon.moves,
+      hp: pokemon.hp,
+      attack: pokemon.attack,
+      specialAttack: pokemon.specialAttack,
+      defense: pokemon.defense,
+      specialDefense: pokemon.specialDefense,
+      speed: pokemon.speed,
+      evolvesFrom: pokemon.evolvesFrom,
+      evolvesInto: pokemon.evolvesInto,
+      evolutionRequirement: pokemon.evolutionRequirement,
+      createdBy: pokemon.createdBy,
     });
     await dex.save();
     return dex.name;
@@ -63,46 +43,52 @@ export class PokemonService {
       });
       return pokemon;
     }
-    const pokemon = await this.dexModel.findOne({pokedexNumber: value});
+    const pokemon = await this.dexModel.findOne({ pokedexNumber: value });
     return pokemon;
   }
 
-
-  async update(
-    pokedexNumber: number,
-    name: string,
-    types: Type[],
-    abilities: Ability[],
-    moves: Move[],
-    hp: number,
-    attack: number,
-    specialAttack: number,
-    defense: number,
-    specialDefense: number,
-    speed: number,
-    evolvesFrom: number,
-    evolvesInto: number,
-    evolutionRequirement: string,
-    createdBy: { type: mongoose.Schema.Types.ObjectId; ref: 'User' }
-  ) {
+  async update(value: number | string, input: PokedexEntry) {
+    if (isNaN(Number(value))) {
+      const pokemon = await this.dexModel.findOneAndUpdate(
+        { name: value },
+        {
+          pokedexNumber: input.pokedexNumber,
+          name: input.name,
+          types: input.types,
+          abilities: input.abilities,
+          moves: input.moves,
+          hp: input.hp,
+          attack: input.attack,
+          specialAttack: input.specialAttack,
+          defense: input.defense,
+          specialDefense: input.specialDefense,
+          speed: input.speed,
+          evolvesFrom: input.evolvesFrom,
+          evolvesInto: input.evolvesInto,
+          evolutionRequirement: input.evolutionRequirement,
+          createdBy: input.createdBy,
+        }
+      );
+      return pokemon.name;
+    }
     const pokemon = await this.dexModel.findOneAndUpdate(
-      { pokedexNumber },
+      { pokedexNumber: value },
       {
-        pokedexNumber,
-        name,
-        types,
-        abilities,
-        moves,
-        hp,
-        attack,
-        specialAttack,
-        defense,
-        specialDefense,
-        speed,
-        evolvesFrom,
-        evolvesInto,
-        evolutionRequirement,
-        createdBy,
+        pokedexNumber: input.pokedexNumber,
+        name: input.name,
+        types: input.types,
+        abilities: input.abilities,
+        moves: input.moves,
+        hp: input.hp,
+        attack: input.attack,
+        specialAttack: input.specialAttack,
+        defense: input.defense,
+        specialDefense: input.specialDefense,
+        speed: input.speed,
+        evolvesFrom: input.evolvesFrom,
+        evolvesInto: input.evolvesInto,
+        evolutionRequirement: input.evolutionRequirement,
+        createdBy: input.createdBy,
       }
     );
     return pokemon.name;

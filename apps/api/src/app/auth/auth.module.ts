@@ -7,6 +7,7 @@ import { AuthController } from './auth.controller';
 import { Identity, IdentitySchema } from './identity.schema';
 import { User, UserSchema } from '../user/user.schema';
 import { AuthService } from './auth.service';
+import { Neo4jService } from '../neo4j/neo4j.service';
 require('dotenv').config();
 
 @Module({
@@ -17,7 +18,7 @@ require('dotenv').config();
     ]),
   ],
   controllers: [AuthController],
-  providers: [AuthService,],
+  providers: [AuthService, Neo4jService],
   exports: [AuthService],
 })
 export class AuthModule {}

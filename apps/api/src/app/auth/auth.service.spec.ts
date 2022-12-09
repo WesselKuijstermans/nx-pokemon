@@ -94,8 +94,8 @@ describe('AuthService', () => {
       });
 
       const token = await service.generateToken(exampleUser.username, exampleUser.password);
-      expect(typeof token).toBe('string');
-      expect(token.length).toBeGreaterThan(0);
+      expect(typeof token).toBe('UserLogin');
+      expect(token.token).toBeGreaterThan(0);
     });
 
     it('should throw when user is not found', async () => {
