@@ -28,8 +28,19 @@ export class Neo4jService {
     const session = this.driver.session();
 
     try {
-      const res = await session.executeWrite(req => req.run(`MERGE (Person {name: $person})`, {person: username}));
-      return res.records.map(row => row.get('p'))
+      const res = await session.executeWrite(req => req.run(`MERGE (p:Person {name: $person})`, {person: username}));
+      return res.records.map(row => row.get('p'));
+    } finally {
+      session.close();
+    }
+  }
+
+  async getUsers() {
+    const session = this.driver.session();
+
+    try {
+      const res = await session.executeRead(req => req.run('MATCH (p:Person) RETURN p'));
+      return res.records.map(row => row.get('p'));
     } finally {
       session.close();
     }
@@ -39,7 +50,7 @@ export class Neo4jService {
     const session = this.driver.session();
 
     try {
-      const res = await session.executeWrite(req => req.run(`MERGE (p:Person {name: $person})-[r:OWNS]->(mon:Pokemon {name: $pokemon})`, {person, pokemon}));
+      const res = await session.executeWrite(req => req.run(`MERGE (p:Person {name: $person}) MERGE (mon:Pokemon {name: $pokemon}) MERGE (p)-[:OWNS]->(mon)`, {person, pokemon}));
       return res.records.map(row => row.get('p'))
     } finally {
       session.close()
