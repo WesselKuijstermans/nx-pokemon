@@ -7,7 +7,8 @@ export class PokemonController {
     constructor(private pokemonService: PokemonService) {}
 
     @Post()
-    async create(@Body() pokemon: PokedexEntry): Promise<string> {
+    async create(@Body() pokemon: PokedexEntry): Promise<PokedexEntry> {
+        console.log("Reached!")
         return this.pokemonService.create(pokemon)
     }
 

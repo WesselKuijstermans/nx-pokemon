@@ -28,7 +28,7 @@ export class PokemonService {
       createdBy: pokemon.createdBy,
     });
     await dex.save();
-    return dex.name;
+    return dex;
   }
 
   async getAll() {

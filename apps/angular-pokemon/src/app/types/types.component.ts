@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Type } from '@nx-pokemon/test';
 import { Observable } from 'rxjs';
+import { TypeService } from './types.service';
 
 @Component({
   selector: 'nx-pokemon-app-types',
@@ -11,16 +12,15 @@ import { Observable } from 'rxjs';
 })
 export class TypesComponent implements OnInit {
   types!: Type[];
-  constructor(private http: HttpClient) {}
+  constructor(private typeService: TypeService) {}
 
   ngOnInit(): void {
-    this.getAllTypes().subscribe(resp => {
+    this.typeService.getAllTypes().subscribe(resp => {
       console.log(resp);
       this.types =  resp;
+      this.types.sort(function(a, b) {
+        return a.name.localeCompare(b.name);
+     });
     })
-  }
-
-  getAllTypes(): Observable<Type[]> {
-    return this.http.get<Type[]>('http://localhost:3000/types');
   }
 }

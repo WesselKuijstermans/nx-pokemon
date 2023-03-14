@@ -8,13 +8,22 @@ import { CasusComponent } from './casus/casus.component';
 import { UsersComponent } from './users/users.component';
 import { RegisterComponent } from './users/register/register.component';
 import { LoginComponent } from './users/login/login.component';
+import { CreatePokemonComponent } from './pokemon/create-pokemon/create-pokemon.component';
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent },
-  { path: 'users', component: UsersComponent,
-    children: [{ path: ':id', component: UsersComponent }],
+  { path: 'users',
+    children: [{ path: '', component: UsersComponent}, 
+               { path: ':id', component: UsersComponent }
+               ],
   },
-  { path: 'pokemon', component: PokemonComponent },
+  {
+    path: 'pokemon',
+    children: [
+      { path: 'create', component: CreatePokemonComponent },
+      { path: '', component: PokemonComponent,}
+    ],
+  },
   { path: 'moves', component: MovesComponent },
   { path: 'types', component: TypesComponent },
   { path: 'casus', component: CasusComponent },

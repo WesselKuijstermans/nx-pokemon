@@ -1,0 +1,159 @@
+<div class="position-absolute top-100 start-50 translate-middle">
+  <div class="card card-block">
+    <form class="col-12" [formGroup]="createPokemonForm" (ngSubmit)="submit()">
+      <div class="form-group">
+        <label for="pokedexNumber">Pokédex Number: </label>
+        <input
+          type="number"
+          class="form-control"
+          id="pokedexNumber"
+          formControlName="pokedexNumber"
+          placeholder="Pokedéx Number"
+        />
+        <p *ngIf="createPokemonForm.controls['pokedexNumber'].invalid">
+          Pokédex number is required
+        </p>
+      </div>
+      <div class="form-group">
+        <label for="name">Name: </label>
+        <input
+          type="string"
+          class="form-control"
+          id="name"
+          formControlName="name"
+          placeholder="Name"
+        />
+        <p *ngIf="createPokemonForm.controls['name'].invalid">
+          Name is required
+        </p>
+      </div>
+
+      <div class="form-group">
+        <label for="type1">Type: </label>
+        <select class="form-control" id="type1" formControlName="type1">
+          <option value="" disabled selected>Choose the type</option>
+          <option *ngFor="let type of types" [ngValue]="type">
+            {{ type.name }}
+          </option>
+        </select>
+        <p *ngIf="createPokemonForm.controls['type1'].invalid">
+          Type is required
+        </p>
+      </div>
+
+      <div class="form-group">
+        <label for="hp">HP: </label>
+        <input
+          type="number"
+          class="form-control"
+          id="hp"
+          formControlName="hp"
+          placeholder="HP"
+        />
+        <p *ngIf="createPokemonForm.controls['hp'].invalid">HP is required</p>
+      </div>
+      <div class="form-group">
+        <label for="attack">Attack: </label>
+        <input
+          type="number"
+          class="form-control"
+          id="attack"
+          formControlName="attack"
+          placeholder="Attack"
+        />
+        <p *ngIf="createPokemonForm.controls['attack'].invalid">
+          Attack is required
+        </p>
+      </div>
+      <div class="form-group">
+        <label for="specialAttack">Special Attack: </label>
+        <input
+          type="number"
+          class="form-control"
+          id="specialAttack"
+          formControlName="specialAttack"
+          placeholder="Special Attack"
+        />
+        <p *ngIf="createPokemonForm.controls['specialAttack'].invalid">
+          Special Attack is required
+        </p>
+      </div>
+      <div class="form-group">
+        <label for="defense">Defense: </label>
+        <input
+          type="number"
+          class="form-control"
+          id="defense"
+          formControlName="defense"
+          placeholder="Defense"
+        />
+        <p *ngIf="createPokemonForm.controls['defense'].invalid">
+          Defense is required
+        </p>
+      </div>
+      <div class="form-group">
+        <label for="specialDefense">Special Defense: </label>
+        <input
+          type="number"
+          class="form-control"
+          id="specialDefense"
+          formControlName="specialDefense"
+          placeholder="Special Defense"
+        />
+        <p *ngIf="createPokemonForm.controls['specialDefense'].invalid">
+          Special Defense is required
+        </p>
+      </div>
+      <div class="form-group">
+        <label for="speed">Speed: </label>
+        <input
+          type="number"
+          class="form-control"
+          id="speed"
+          formControlName="speed"
+          placeholder="Speed"
+        />
+        <p *ngIf="createPokemonForm.controls['speed'].invalid">
+          Speed is required
+        </p>
+      </div>
+      <div class="form-group">
+        <label for="evolvesFrom">Evolves From: </label>
+        <input
+          type="number"
+          class="form-control"
+          id="evolvesFrom"
+          formControlName="evolvesFrom"
+          placeholder="Evolves From"
+        />
+      </div>
+      <div class="form-group">
+        <label for="evolvesInto">Evolves Into: </label>
+        <input
+          type="number"
+          class="form-control"
+          id="evolvesInto"
+          formControlName="evolvesInto"
+          placeholder="Evolves Into"
+        />
+      </div>
+      <div class="form-group">
+        <label for="evolutionRequirement">Evolution Requirement: </label>
+        <input
+          type="string"
+          class="form-control"
+          id="evolutionRequirement"
+          formControlName="evolutionRequirement"
+          placeholder="Evolution Requirement"
+        />
+      </div>
+      <button
+        class="btn btn-success"
+        type="submit"
+        [disabled]="!createPokemonForm.valid"
+      >
+        Create
+      </button>
+    </form>
+  </div>
+</div>

@@ -7,22 +7,44 @@ import { UserIdentity } from "./user.interface";
 export interface Pokemon {
     name: string;
     pokedexNumber: number;
-    types: Type[];
+    types: Type[] | undefined;
     hp: number;
     defense: number;
     specialDefense: number;
     attack: number;
     specialAttack: number;
-    Speed: number;
-    evolvesFrom: Pokemon | number;
-    evolvesInto: Pokemon | number;
-    evolutionRequirement: string;
+    speed: number;
+    evolvesFrom: Pokemon | number | undefined;
+    evolvesInto: Pokemon | number | undefined;
+    evolutionRequirement: string | undefined;
 }
 
 export interface PokedexEntry extends Pokemon {
-    Abilities: Ability[];
-    Moves: Move[];
+    abilities: Ability[] | undefined;
+    moves: Move[] | undefined;
     createdBy: UserIdentity;
+}
+
+export class pokemonFormValues {
+    name: any;
+    pokedexNumber: any;
+    type1: any;
+    type2: any;
+    hp: any;
+    defense: any;
+    specialDefense: any;
+    attack: any;
+    specialAttack: any;
+    speed: any;
+    evolvesFrom: any;
+    evolvesInto: any;
+    evolutionRequirement: any;
+    Abilities: any;
+    Moves: any;
+    createdBy: any;
+    public constructor(init?: Partial<pokemonFormValues>) {
+        Object.assign(this, init);
+      }
 }
 
 export interface OwnedPokemon extends Pokemon {

@@ -1,0 +1,20 @@
+label {
+    font-size: x-large;
+}
+
+input {
+    font-size: x-large;
+    margin-bottom: 10px;
+}
+
+form {
+    padding: 5%;
+}
+button {
+    margin-top: 5%;
+    width: 100%;
+}
+
+p {
+    font-size: smaller;
+}

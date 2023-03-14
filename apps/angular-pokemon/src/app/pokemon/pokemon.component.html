@@ -1,1 +1,32 @@
-<p>pokémon works!</p>
+<div class="container">
+    <div class="create-pokemon">
+        <a class="btn btn-success" routerLink="create">Add Pokémon</a>
+    </div>    
+    <table class="table table-hover">
+      <thead>
+        <th>Pokédex Number</th>
+        <th>Name</th>
+        <th>Types</th>
+        <th>HP</th>
+        <th>Attack</th>
+        <th>Sp. Attack</th>
+        <th>Defense</th>
+        <th>Sp. Defense</th>
+        <th>Speed</th>
+      </thead>
+      <tbody>
+        <tr *ngFor="let mon of mons" routerLink="/pokemon/{{mon.pokedexNumber}}">
+          <td>{{ mon.pokedexNumber }}</td>
+          <td>{{ mon.name }}</td>
+          <td>{{ mon.types![0].name + ", " + mon.types![1].name}}</td>
+          <td>{{ mon.hp }}</td>
+          <td>{{ mon.attack }}</td>
+          <td>{{ mon.specialAttack }}</td>
+          <td>{{ mon.defense }}</td>
+          <td>{{ mon.specialDefense }}</td>
+          <td>{{ mon.speed }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  
