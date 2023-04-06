@@ -14,27 +14,6 @@ describe('UserService', () => {
   let mongoc: MongoClient;
   let userModel: Model<UserDocument>;
 
-  const testMeetups = [{
-    topic: 'math',
-    datetime: new Date(),
-    review: {text: 'Great help! (1)', rating: 4},
-    accepted: true,
-  }, {
-    topic: 'math',
-    datetime: new Date(),
-    review: {text: 'Great help! (2)', rating: 4},
-    accepted: true,
-  }, {
-    topic: 'math',
-    datetime: new Date(),
-    review: {text: 'Great help! (3)', rating: 5},
-    accepted: true,
-  }, {
-    topic: 'math',
-    datetime: new Date(),
-    accepted: true,
-  }]
-
   const testUsers = [{
     id: 'jan123',
     name: 'jan',
