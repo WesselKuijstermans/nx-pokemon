@@ -20,4 +20,9 @@ export class Neo4jController {
     async followUser(@Body() p1:string, p2:string) {
         return this.neoService.follow(p1, p2)
     }
+
+    @Get('/users/pokemon')
+    async getTeamOfOther(@Body() p1:string, p2:string) {
+        return this.neoService.getPokemonsFromOtherTeam(p1, p2)
+    }
 }
