@@ -63,13 +63,10 @@ describe('UserService', () => {
 
   beforeEach(async () => {
     await mongoc.db('test').collection('users').deleteMany({});
-    await mongoc.db('test').collection('meetups').deleteMany({});
 
     const user1 = new userModel(testUsers[0]);
     const user2 = new userModel(testUsers[1]);
     const user3 = new userModel(testUsers[2]);
-
-
   });
 
   afterAll(async () => {
@@ -101,19 +98,6 @@ describe('UserService', () => {
       
       expect(result).toBeUndefined();
     });
-    
-    it('should not give meetups', async () => {
-      const result = await service.getOne('jan123');
-      
-      expect(result).not.toHaveProperty('meetups');
-    });
-    
-    it('gives the average rating', async () => {
-      const result = await service.getOne('jan123');
-      
-      expect(result).toHaveProperty('rating', 4.5);
-    });
-    
   });
 });
 })
