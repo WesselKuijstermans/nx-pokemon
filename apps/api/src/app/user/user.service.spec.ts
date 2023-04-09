@@ -55,7 +55,6 @@ describe('UserService', () => {
   beforeEach(async () => {
     await mongoc.db('test').collection('users').deleteMany({});
     await mongoc.db('test').collection('users').insertMany(testUsers);
-    jest.useFakeTimers();
   });
 
   afterAll(async () => {
@@ -85,7 +84,7 @@ describe('UserService', () => {
     it('returns null when user is not found', async () => {
       const result = await service.getOne('niemand');
 
-      expect(result).toBeUndefined();
+      expect(result).toEqual(null);
     });
   });
 });

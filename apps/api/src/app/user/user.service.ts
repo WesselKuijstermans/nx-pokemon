@@ -19,20 +19,20 @@ export class UserService {
     return await this.userModel.find();
   }
 
-  async getOne(trainerId: string): Promise<User | null> {
-    const user = await this.userModel.findOne({ trainerId });
+  async getOne(id: string): Promise<User | null> {
+    const user = await this.userModel.findOne({id });
     return user;
   }
 
-  async addToTeam(trainerId: string, pokemon: OwnedPokemon) {
-    console.log(trainerId, pokemon)
-    const resp = await this.userModel.updateOne({trainerId}, {$push : {team: pokemon}})
+  async addToTeam(id: string, pokemon: OwnedPokemon) {
+    console.log(id, pokemon)
+    const resp = await this.userModel.updateOne({id}, {$push : {team: pokemon}})
     return resp.acknowledged;
   }
 
-  async removeFromTeam(trainerId: string, pokemonId: string) {
-    console.log(trainerId, pokemonId)
-    const resp = await this.userModel.updateOne({trainerId}, {$pull : {team: {name: pokemonId}}})
+  async removeFromTeam(id: string, pokemonId: string) {
+    console.log(id, pokemonId)
+    const resp = await this.userModel.updateOne({id}, {$pull : {team: {name: pokemonId}}})
     return resp.acknowledged;
   }
 }

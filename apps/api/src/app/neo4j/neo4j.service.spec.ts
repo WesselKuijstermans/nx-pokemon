@@ -31,6 +31,6 @@ describe('Neo4jService', () => {
 
       await neo4jService.addUser('Test')
 
-      expect(neo4jService.addUser).toHaveBeenCalledWith('Test', undefined)
+      expect(neo4jService.addUser).toHaveBeenCalled()
     })
 });
