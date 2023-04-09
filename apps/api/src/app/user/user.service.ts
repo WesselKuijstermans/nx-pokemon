@@ -6,13 +6,13 @@ import { InjectModel } from '@nestjs/mongoose';
 import { OwnedPokemon, User as UserModel, UserDocument } from './user.schema';
 
 import { User, UserInfo } from '@nx-pokemon/test';
-import { Neo4jService } from '../neo4j/neo4j.service';
+// import { Neo4jService } from '../neo4j/neo4j.service';
 
 @Injectable()
 export class UserService {
   constructor(
     @InjectModel(UserModel.name) private userModel: Model<UserDocument>,
-    private neoService: Neo4jService
+    // private neoService: Neo4jService
   ) {}
 
   async getAll(): Promise<UserInfo[]> {

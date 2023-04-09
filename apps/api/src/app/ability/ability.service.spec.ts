@@ -1,13 +1,12 @@
-import { Test, TestingModule } from '@nestjs/testing';
+import { Test } from '@nestjs/testing';
 import { AbilityService } from './ability.service';
-import { Ability, AbilityDocument, AbilitySchema } from './ability.schema';
-import { MongooseModule, getModelToken } from '@nestjs/mongoose';
-import { Model, disconnect } from 'mongoose';
+import { Ability, AbilitySchema } from './ability.schema';
+import { MongooseModule } from '@nestjs/mongoose';
+import { disconnect } from 'mongoose';
 import { MongoMemoryServer } from 'mongodb-memory-server';
 import { MongoClient } from 'mongodb'
 
 describe('AbilityController', () => {
-  let abilityModel: Model<AbilityDocument>;
   let service: AbilityService;
   let mongod: MongoMemoryServer;
   let mongoc: MongoClient;
@@ -19,6 +18,7 @@ describe('AbilityController', () => {
     name: 'Overgrow',
     effect: 'Deal more Grass type damage when at low HP'
   }]
+
 
   beforeAll(async () => {
     let uri: string;
@@ -38,8 +38,6 @@ describe('AbilityController', () => {
     }).compile();
 
     service = app.get<AbilityService>(AbilityService);
-    abilityModel = app.get<Model<AbilityDocument>>(getModelToken(Ability.name))
-
     mongoc = new MongoClient(uri);
     await mongoc.connect();
   });
@@ -80,36 +78,21 @@ describe('AbilityController', () => {
       expect(result).toEqual(null)
     })
   });
-  
 
-  
 
-  // it('should delete an Ability doc', async () => {
-  //   // arrange
-  //   const result = {deletedCount: 0, acknowledged: true}
-  //   const abilityName = 'Test';
-  //   const spy = jest
-  //     .spyOn(abilityModel, 'deleteOne') // <- spy on what you want
-  //     .mockResolvedValue(result) // <- spy on what you want
-  //   // act
-  //   await service.findByNameAndDelete(abilityName);
-  //   // assert
-  //   expect(spy).toBeCalled();
-  // });
+  describe('findByNameAndUpdate', () => {
+    it('should update a specific ability', async () => {
+      const result = await service.findByNameAndUpdate('Levitate', 'Test', 'Test');
 
-  // it('should update an Ability doc', async () => {
-  //   // arrange
-  //   const result = new Ability()
-  //   const abilityName = 'Test';
-  //   const newAbilityName = 'NewTest'
-  //   const newAbilityEffect = 'NewEffect'
-  //   const spy = jest
-  //     .spyOn(abilityModel, 'findOneAndUpdate') // <- spy on what you want
-  //     .mockResolvedValue(result) // <- Set your resolved value
-  //   // act
-  //   await service.findByNameAndUpdate(abilityName, newAbilityName, newAbilityEffect);
-  //   // assert
-  //   expect(spy).toBeCalled();
-  // });
+      expect(result).toEqual('Test');
+      })
+  })
 
+  describe('findByNameAndDelete', () => {
+    it('should delete a specific ability', async () => {
+      const result = await service.findByNameAndDelete('Levitate');
+
+      expect(result).toEqual(true);
+      })
+  })
 });

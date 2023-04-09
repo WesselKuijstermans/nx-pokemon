@@ -16,9 +16,8 @@ export class TypesService {
   }
 
   async delete(param : string) {
-    const deletedType = await this.typeModel;
-    this.typeModel.findByIdAndRemove({ name: param}).exec();
-    return deletedType;
+    const response = await this.typeModel.deleteOne({ name: param}).exec();
+    return response.acknowledged;
   }
 
 }

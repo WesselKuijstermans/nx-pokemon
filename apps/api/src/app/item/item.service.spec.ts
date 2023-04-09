@@ -1,83 +1,98 @@
-import { Test, TestingModule } from '@nestjs/testing';
+import { Test } from '@nestjs/testing';
 import { ItemService } from './item.service';
-import { getModelToken } from '@nestjs/mongoose';
-import { Item, ItemDocument } from './item.schema';
-import { Model } from 'mongoose';
+import { MongooseModule } from '@nestjs/mongoose';
+import { Item, ItemSchema } from './item.schema';
+import { disconnect } from 'mongoose';
+import { MongoMemoryServer } from 'mongodb-memory-server';
+import { MongoClient } from 'mongodb'
+
 
 describe('ItemService', () => {
-  let mockItemModel: Model<ItemDocument>;
   let service: ItemService;
+  let mongod: MongoMemoryServer;
+  let mongoc: MongoClient;
 
-  beforeEach(async () => {
-    const module: TestingModule = await Test.createTestingModule({
-      providers: [ItemService, 
-        { provide: getModelToken(Item.name), useValue: Model },
-      
+  const testItems = [{
+    name: 'Focus Sash',
+    effect: "Survives at 1 HP if OHKO'd at full HP"
+  }, {
+    name: 'Leftovers',
+    effect: 'Restores a small amount of HP at the end of your turn'
+  }];
+
+  beforeAll(async () => {
+    let uri: string;
+
+    const app = await Test.createTestingModule({
+      imports: [
+        MongooseModule.forRootAsync({
+          useFactory: async () => {
+            mongod = await MongoMemoryServer.create();
+            uri = mongod.getUri();
+            return {uri};
+          }
+        }),
+        MongooseModule.forFeature([{name: Item.name, schema: ItemSchema}])
       ],
+      providers: [ItemService],
     }).compile();
 
-    mockItemModel = module.get<Model<ItemDocument>>(
-      getModelToken(Item.name)
-    );
-    service = module.get<ItemService>(ItemService);
+    service = app.get<ItemService>(ItemService);
+
+    mongoc = new MongoClient(uri);
+    await mongoc.connect();
   });
 
-  it('should be defined', () => {
-    expect(service).toBeDefined();
+  beforeEach(async () => {
+    await mongoc.db('test').collection('items').deleteMany({});
+    await mongoc.db('test').collection('items').insertMany(testItems);
   });
 
-  it('should return an Item doc', async () => {
-    // arrange
-    const item = new Item();
-    const itemName = 'Overgrow';
-    const spy = jest
-      .spyOn(mockItemModel, 'findOne') // <- spy on what you want
-      .mockResolvedValue(item as ItemDocument); // <- Set your resolved value
-    // act
-    await service.getByName(itemName);
-    // assert
-    expect(spy).toBeCalled();
-  });
+  afterAll(async () => {
+    await mongoc.close();
+    await disconnect();
+    await mongod.stop();
+  })
 
-  
+  describe('getAll', () => {
+    it('should return all Item docs', async () => {
+    const results = await service.getAll();
 
-  it('should return all Item docs', async () => {
-    // arrange
-    const item = new Array<Item>();
-    const spy = jest
-      .spyOn(mockItemModel, 'find') // <- spy on what you want
-      .mockResolvedValue(item as [ItemDocument]); // <- Set your resolved value
-    // act
-    await service.getAll();
-    // assert
-    expect(spy).toBeCalled();
+    expect(results).toHaveLength(2);
+    expect(results.map(r => r.name)).toContain('Focus Sash')
+    expect(results.map(r => r.name)).toContain('Leftovers')
   });
-  
-  it('should delete an Item doc', async () => {
-    // arrange
-    const result = {deletedCount: 0, acknowledged: true}
-    const itemName = 'Test';
-    const spy = jest
-      .spyOn(mockItemModel, 'deleteOne') // <- spy on what you want
-      .mockResolvedValue(result) // <- spy on what you want
-    // act
-    await service.findByNameAndDelete(itemName);
-    // assert
-    expect(spy).toBeCalled();
-  });
+  })
 
-  it('should update an Item doc', async () => {
-    // arrange
-    const result = new Item()
-    const itemName = 'Test';
-    const newItemName = 'NewTest'
-    const newItemEffect = 'NewEffect'
-    const spy = jest
-      .spyOn(mockItemModel, 'findOneAndUpdate') // <- spy on what you want
-      .mockResolvedValue(result) // <- Set your resolved value
-    // act
-    await service.findByNameAndUpdate(itemName, newItemName, newItemEffect);
-    // assert
-    expect(spy).toBeCalled();
-  });
+  describe('getOne', () => {
+    it('should return an Item doc', async () => {
+      const result = await service.getByName('Focus Sash');
+      const expected = testItems[0]
+
+      expect(result.name).toEqual(expected.name);
+      expect(result.effect).toEqual(expected.effect);
+    });
+
+    it('should return null when no documents match', async () => {
+      const result = await service.getByName('NaN');
+
+      expect(result).toEqual(null);
+    })
+  })
+
+  describe('findByNameAndUpdate', () => {
+    it('should update a specific item', async () => {
+      const result = await service.findByNameAndUpdate('Focus Sash', 'Test', 'Test');
+
+      expect(result).toEqual('Test');
+      })
+  })
+
+  describe('findByNameAndDelete', () => {
+    it('should delete a specific item', async () => {
+      const result = await service.findByNameAndDelete('Focus Sash');
+
+      expect(result).toEqual(true);
+      })
+  })
 });

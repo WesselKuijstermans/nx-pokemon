@@ -51,11 +51,10 @@ export class MoveService {
     makesContact: boolean,
     pp: number,
     power: number,
-    accuracy: number,
-    createdBy: { type: mongoose.Schema.Types.ObjectId; ref: 'User'}) {
+    accuracy: number,) {
     const item = await this.moveModel.findOneAndUpdate(
       { name: new RegExp('^' + value + '$', 'i') },
-      { name, type, category, makesContact, pp, power, accuracy, createdBy },
+      { name, type, category, makesContact, pp, power, accuracy },
       { new: true }
     );
     return item.name;

@@ -11,13 +11,13 @@ export class Type {
   name: string;
 
   @Prop()
-  weaknesses: [string];
+  weaknesses: string[];
 
   @Prop()
-  immunes: [string];
+  immunes: string[];
   
   @Prop()
-  strengths: [string];
+  strengths: string[];
 }
 
 export const TypeSchema = SchemaFactory.createForClass(Type);
